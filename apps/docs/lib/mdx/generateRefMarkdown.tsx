@@ -16,7 +16,7 @@ async function generateRefMarkdown(sections: ICommonMarkdown[], slug: string) {
    */
   await Promise.all(
     sections.map(async (section) => {
-      const pathName = `docs/ref${slug}/${section.id}.mdx`;
+      const pathName = `./docs/ref${slug}/${section.id}.mdx`;
 
       console.info({ pathName });
 
