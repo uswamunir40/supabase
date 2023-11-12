@@ -1,8 +1,4 @@
-import ApiGenerator from './api'
 import CliGenerator from './cli'
-import ConfigGenerator from './config'
-import SdkGenerator from './sdk'
-import LegacyGenerator from './legacy'
 import { parseArgs } from 'node:util'
 import { strict as assert } from 'node:assert'
 
@@ -52,24 +48,8 @@ export default async function DocGenerator({
   url?: string
 }) {
   switch (type) {
-    case 'api':
-      await ApiGenerator(input, output, url || '')
-      break
-
     case 'cli':
       await CliGenerator(input, output)
-      break
-
-    case 'config':
-      await ConfigGenerator(input, output)
-      break
-
-    case 'sdk':
-      await SdkGenerator(input, output)
-      break
-
-    case 'legacy':
-      await LegacyGenerator(input, output)
       break
 
     default:
