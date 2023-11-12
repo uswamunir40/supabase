@@ -33,8 +33,8 @@ const nextConfig = {
   //output: "standalone",
   experimental: {
     outputFileTracingIncludes: {
-      "/": ["./docs/ref/cli/introduction.mdx"],
-      "/docs/reference/cli/[...slug]": ["./docs/ref/cli/introduction.mdx"],
+      "/": ["docs/ref/cli/introduction.mdx"],
+      "/docs/reference/cli/[...slug]": ["docs/ref/cli/introduction.mdx"],
     },
   },
 
