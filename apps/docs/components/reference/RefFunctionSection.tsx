@@ -2,13 +2,10 @@ import ReactMarkdown from 'react-markdown'
 
 import { CodeBlock, IconDatabase, Tabs } from 'ui'
 
-import Options from '~/components/Options'
-import Param from '~/components/Params'
 import RefSubLayout from '~/layouts/ref/RefSubLayout'
-import { extractTsDocNode, generateParameters } from '~/lib/refGenerator/helpers'
+import { extractTsDocNode } from '~/lib/refGenerator/helpers'
 
 import RefDetailCollapse from '~/components/reference/RefDetailCollapse'
-import { Fragment } from 'react'
 import { IRefFunctionSection } from './Reference.types'
 import components from '~/components'
 
@@ -22,7 +19,6 @@ const RefFunctionSection: React.FC<IRefFunctionSection> = (props) => {
 
   const tsDefinition =
     hasTsRef && props.typeSpec ? extractTsDocNode(hasTsRef, props.typeSpec) : null
-  const parameters = hasTsRef && tsDefinition ? generateParameters(tsDefinition) : ''
   const shortText = hasTsRef && tsDefinition ? tsDefinition.signatures[0].comment.shortText : ''
 
   return (
@@ -49,55 +45,6 @@ const RefFunctionSection: React.FC<IRefFunctionSection> = (props) => {
                 <ReactMarkdown className="text-sm" components={components}>
                   {item.notes}
                 </ReactMarkdown>
-              </div>
-            )}
-            {/* // parameters */}
-            {parameters && (
-              <div className="not-prose mt-12">
-                <h5 className="mb-3 text-base text-foreground">Parameters</h5>
-                <ul className="">
-                  {parameters.map((param) => {
-                    // grab override params from yaml file
-                    const overrideParams = item.overrideParams
-
-                    // params from the yaml file can override the params from parameters if it matches the name
-                    const overide = overrideParams?.filter((x) => {
-                      return param.name === x.name
-                    })
-
-                    const paramItem = overide?.length > 0 ? overide[0] : param
-                    return (
-                      <Param {...paramItem} key={param.name}>
-                        {paramItem.subContent && (
-                          <div className="mt-3">
-                            <Options>
-                              {param.subContent.map((param) => {
-                                return (
-                                  <Fragment key={param.name + 'subcontent'}>
-                                    <Options.Option {...param}>
-                                      {param.subContent && (
-                                        <Options>
-                                          {param.subContent.map((param) => {
-                                            return (
-                                              <Options.Option
-                                                {...param}
-                                                key={param.name + 'subcontent-option'}
-                                              />
-                                            )
-                                          })}
-                                        </Options>
-                                      )}
-                                    </Options.Option>
-                                  </Fragment>
-                                )
-                              })}
-                            </Options>
-                          </div>
-                        )}
-                      </Param>
-                    )
-                  })}
-                </ul>
               </div>
             )}
           </>
