@@ -1,15 +1,16 @@
 // @ts-check
-import nextMdx from '@next/mdx'
-import { remarkCodeHike } from '@code-hike/mdx'
+import nextMdx from "@next/mdx";
+import { remarkCodeHike } from "@code-hike/mdx";
+import CopyWebpackPlugin from 'copy-webpack-plugin'
 
-import withYaml from 'next-plugin-yaml'
-import configureBundleAnalyzer from '@next/bundle-analyzer'
+import withYaml from "next-plugin-yaml";
+import configureBundleAnalyzer from "@next/bundle-analyzer";
 
-import codeHikeTheme from 'config/code-hike.theme.json' assert { type: 'json' }
+import codeHikeTheme from "config/code-hike.theme.json" assert { type: "json" };
 
 const withBundleAnalyzer = configureBundleAnalyzer({
-  enabled: process.env.ANALYZE === 'true',
-})
+  enabled: process.env.ANALYZE === "true",
+});
 
 const withMDX = nextMdx({
   extension: /\.mdx?$/,
@@ -24,59 +25,68 @@ const withMDX = nextMdx({
         },
       ],
     ],
-    providerImportSource: '@mdx-js/react',
+    providerImportSource: "@mdx-js/react",
   },
-})
+});
 
 /** @type {import('next').NextConfig} nextConfig */
 const nextConfig = {
+  webpack(config, options) {
+    config.plugins.push(
+      new CopyWebpackPlugin({
+        patterns: [{ from: "docs", to: "docs" }],
+      })
+    );
+    return config;
+  },
+  cleanDistDir: false,
   // Append the default value with md extensions
-  pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
+  pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
   // reactStrictMode: true,
   // swcMinify: true,
-  basePath: '/docs',
+  basePath: "/docs",
   images: {
     dangerouslyAllowSVG: true,
     domains: [
-      'avatars.githubusercontent.com',
-      'github.com',
-      'supabase.github.io',
-      'user-images.githubusercontent.com',
-      'raw.githubusercontent.com',
-      'weweb-changelog.ghost.io',
-      'img.youtube.com',
-      'archbee-image-uploads.s3.amazonaws.com',
-      'obuldanrptloktxcffvn.supabase.co',
+      "avatars.githubusercontent.com",
+      "github.com",
+      "supabase.github.io",
+      "user-images.githubusercontent.com",
+      "raw.githubusercontent.com",
+      "weweb-changelog.ghost.io",
+      "img.youtube.com",
+      "archbee-image-uploads.s3.amazonaws.com",
+      "obuldanrptloktxcffvn.supabase.co",
     ],
   },
   // TODO: @next/mdx ^13.0.2 only supports experimental mdxRs flag. next ^13.0.2 will stop warning about this being unsupported.
   // mdxRs: true,
   modularizeImports: {
     lodash: {
-      transform: 'lodash/{{member}}',
+      transform: "lodash/{{member}}",
     },
   },
-  transpilePackages: ['ui', 'common', 'dayjs', 'shared-data'],
+  transpilePackages: ["ui", "common", "dayjs", "shared-data"],
   async headers() {
     return [
       {
-        source: '/:path*',
+        source: "/:path*",
         headers: [
           {
-            key: 'Strict-Transport-Security',
-            value: '',
+            key: "Strict-Transport-Security",
+            value: "",
           },
           {
-            key: 'X-Robots-Tag',
-            value: 'all',
+            key: "X-Robots-Tag",
+            value: "all",
           },
           {
-            key: 'X-Frame-Options',
-            value: 'DENY',
+            key: "X-Frame-Options",
+            value: "DENY",
           },
         ],
       },
-    ]
+    ];
   },
 
   /**
@@ -92,35 +102,35 @@ const nextConfig = {
     return [
       // Redirect root to docs base path in dev/preview envs
       {
-        source: '/',
-        destination: '/docs',
+        source: "/",
+        destination: "/docs",
         basePath: false,
         permanent: false,
       },
 
       // Redirect dashboard links in dev/preview envs
       {
-        source: '/dashboard/:path*',
-        destination: 'https://supabase.com/dashboard/:path*',
+        source: "/dashboard/:path*",
+        destination: "https://supabase.com/dashboard/:path*",
         basePath: false,
         permanent: false,
       },
 
       // Redirect blog links in dev/preview envs
       {
-        source: '/blog/:path*',
-        destination: 'https://supabase.com/blog/:path*',
+        source: "/blog/:path*",
+        destination: "https://supabase.com/blog/:path*",
         basePath: false,
         permanent: false,
       },
-    ]
+    ];
   },
-}
+};
 
 const configExport = () => {
-  const plugins = [withMDX, withYaml, withBundleAnalyzer]
+  const plugins = [withMDX, withYaml, withBundleAnalyzer];
   // @ts-ignore
-  return plugins.reduce((acc, next) => next(acc), nextConfig)
-}
+  return plugins.reduce((acc, next) => next(acc), nextConfig);
+};
 
-export default configExport
+export default configExport;
