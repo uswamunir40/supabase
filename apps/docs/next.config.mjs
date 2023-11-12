@@ -3,6 +3,7 @@ import nextMdx from "@next/mdx";
 import { remarkCodeHike } from "@code-hike/mdx";
 import withYaml from "next-plugin-yaml";
 import configureBundleAnalyzer from "@next/bundle-analyzer";
+import CopyWebpackPlugin from 'copy-webpack-plugin'
 
 import codeHikeTheme from "config/code-hike.theme.json" assert { type: "json" };
 
@@ -30,6 +31,16 @@ const withMDX = nextMdx({
 /** @type {import('next').NextConfig} nextConfig */
 const nextConfig = {
   outputFileTracing: true,
+  webpack(config, options) {
+    /** MDX files in docs folder are loaded dynamically on the server, so they need to be included in the .next build dir */
+    config.plugins.push(
+      new CopyWebpackPlugin({
+        patterns: [{ from: "docs/ref", to: "docs/ref" }],
+      })
+    );
+    return config;
+  },
+
   //output: "standalone",
   experimental: {
     outputFileTracingIncludes: {
