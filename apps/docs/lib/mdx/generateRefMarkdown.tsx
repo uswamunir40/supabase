@@ -1,10 +1,15 @@
-import fs from "fs";
+import fs, { readdirSync } from "fs";
 
 import { CodeHikeConfig, remarkCodeHike } from "@code-hike/mdx";
 import codeHikeTheme from "config/code-hike.theme.json" assert { type: "json" };
 import matter from "gray-matter";
 import { serialize } from "next-mdx-remote/serialize";
 import { ICommonMarkdown } from "~/components/reference/Reference.types";
+
+const getDirectories = (source) =>
+  readdirSync(source, { withFileTypes: true })
+    .filter((dirent) => dirent.isDirectory())
+    .map((dirent) => dirent.name);
 
 async function generateRefMarkdown(sections: ICommonMarkdown[], slug: string) {
   let markdownContent = [];
@@ -21,6 +26,9 @@ async function generateRefMarkdown(sections: ICommonMarkdown[], slug: string) {
       if (process.env.NODE_ENV === "production") {
         const baseDir = __dirname.split("/.next")[0];
         pathName = `${baseDir}/.next/server/docs/ref${slug}/${section.id}.mdx`;
+
+        console.log('top level dirs')
+        console.log(getDirectories(`${baseDir}/.next/server`).join(", "));
       }
 
       function checkFileExists(x) {
