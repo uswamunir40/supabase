@@ -12,6 +12,7 @@ async function handleRefGetStaticPaths(sections: ICommonSection[]) {
   // In production, generate static pages for every sub-section (better SEO)
   return {
     paths: sections.map((section) => {
+      console.log({ section })
       return {
         params: {
           slug: [section.slug],

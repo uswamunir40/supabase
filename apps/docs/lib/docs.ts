@@ -19,12 +19,7 @@ export function getDocsBySlug(slug: string) {
   const formattedSlug =
     (realSlug.includes('reference/javascript/') &&
       !nonGeneratedReferencePages.includes(realSlug)) ||
-    (realSlug.includes('reference/dart/') && !nonGeneratedReferencePages.includes(realSlug)) ||
-    (realSlug.includes('reference/cli/') && !nonGeneratedReferencePages.includes(realSlug)) ||
-    (realSlug.includes('reference/api/') && !nonGeneratedReferencePages.includes(realSlug)) ||
-    (realSlug.includes('reference/auth/') && !nonGeneratedReferencePages.includes(realSlug)) ||
-    (realSlug.includes('reference/realtime/') && !nonGeneratedReferencePages.includes(realSlug)) ||
-    (realSlug.includes('reference/storage/') && !nonGeneratedReferencePages.includes(realSlug))
+    (realSlug.includes('reference/cli/') && !nonGeneratedReferencePages.includes(realSlug))
       ? getPathToGeneratedDoc(realSlug)
       : realSlug
 

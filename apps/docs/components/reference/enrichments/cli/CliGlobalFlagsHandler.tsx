@@ -13,8 +13,6 @@ const CliGlobalFlagsHandler = () => {
           })}
         </ul>
       </RefSubLayout.Details>
-
-      <RefSubLayout.Examples></RefSubLayout.Examples>
     </RefSubLayout.EducationRow>
   )
 }
