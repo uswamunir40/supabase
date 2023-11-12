@@ -7,9 +7,8 @@ import '../styles/main.scss?v=1.0.0'
 import '../styles/new-docs.scss'
 import '../styles/prism-okaidia.scss'
 
-import { SessionContextProvider } from '@supabase/auth-helpers-react'
 import { createClient } from '@supabase/supabase-js'
-import { AuthProvider, ThemeProvider } from 'common'
+import { ThemeProvider } from 'common'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { AppPropsWithLayout } from 'types'
@@ -86,37 +85,18 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     }
   }, [router])
 
-  const SITE_TITLE = 'Supabase Documentation'
-
-  const AuthContainer = (props) => {
-    return IS_PLATFORM ? (
-      <SessionContextProvider supabaseClient={supabase}>
-        <AuthProvider>{props.children}</AuthProvider>
-      </SessionContextProvider>
-    ) : (
-      <AuthProvider>{props.children}</AuthProvider>
-    )
-  }
-
   return (
     <>
-      <AuthContainer>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <CommandMenuProvider site="docs">
-            <TabsProvider>
-              <SiteLayout>
-                <PortalToast />
-                <Component {...pageProps} />
-              </SiteLayout>
-            </TabsProvider>
-          </CommandMenuProvider>
-        </ThemeProvider>
-      </AuthContainer>
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+        <CommandMenuProvider site="docs">
+          <TabsProvider>
+            <SiteLayout>
+              <PortalToast />
+              <Component {...pageProps} />
+            </SiteLayout>
+          </TabsProvider>
+        </CommandMenuProvider>
+      </ThemeProvider>
     </>
   )
 }

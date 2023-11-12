@@ -1,6 +1,4 @@
-import Head from 'next/head'
 import { PropsWithChildren, memo } from 'react'
-
 
 const Container = memo(function Container(props: PropsWithChildren) {
   return (
@@ -24,9 +22,6 @@ const Container = memo(function Container(props: PropsWithChildren) {
 const SiteLayout = ({ children }: PropsWithChildren<{}>) => {
   return (
     <>
-      <Head>
-        <title>Supabase Docs</title>
-      </Head>
       <main>
         <div className="flex flex-row h-screen">
           <Container>

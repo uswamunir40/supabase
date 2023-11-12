@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
@@ -57,22 +56,9 @@ const RefSectionHandler = (props: RefSectionHandlerProps) => {
 
   const pageTitle = getPageTitle()
   const section = props.sections.find((section) => section.slug === slug)
-  const fullTitle = `${pageTitle}${section ? ` - ${section.title}` : ''}`
-  const path = router.asPath.replace('/crawlers', '')
 
   return (
     <>
-      <Head>
-        <title>{fullTitle}</title>
-        <meta name="description" content={section?.title ?? pageTitle} />
-        <meta property="og:image" content={`https://supabase.com/docs/img/supabase-og-image.png`} />
-        <meta
-          name="twitter:image"
-          content={`https://supabase.com/docs/img/supabase-og-image.png`}
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="canonical" href={`https://supabase.com${router.basePath}${path}`} />
-      </Head>
       <RefSubLayout>
         {props.sections.map((section, i) => {
           const sectionType = section.type

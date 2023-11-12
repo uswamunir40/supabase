@@ -4,7 +4,6 @@ import { CodeHikeConfig, remarkCodeHike } from '@code-hike/mdx'
 import codeHikeTheme from 'config/code-hike.theme.json' assert { type: 'json' }
 import matter from 'gray-matter'
 import { serialize } from 'next-mdx-remote/serialize'
-import remarkGfm from 'remark-gfm'
 import { ICommonMarkdown } from '~/components/reference/Reference.types'
 
 async function generateRefMarkdown(sections: ICommonMarkdown[], slug: string) {
@@ -56,7 +55,7 @@ async function generateRefMarkdown(sections: ICommonMarkdown[], slug: string) {
               // https://mdxjs.com/packages/mdx/#compilefile-options
               mdxOptions: {
                 useDynamicImport: true,
-                remarkPlugins: [remarkGfm, [remarkCodeHike, codeHikeOptions]],
+                remarkPlugins: [[remarkCodeHike, codeHikeOptions]],
               },
               // Indicates whether or not to parse the frontmatter from the mdx source
             })
