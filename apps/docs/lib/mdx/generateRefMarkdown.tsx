@@ -13,6 +13,15 @@ const getDirectories = (source) =>
 
 async function generateRefMarkdown(sections: ICommonMarkdown[], slug: string) {
   let markdownContent = [];
+
+  const pathes = [
+    "/var/task/apps/docs/docs/ref/cli/introduction.mdx",
+    "/var/task/apps/docs/.next/docs/ref/cli/introduction.mdx",
+    "/var/task/apps/docs/.next/server/docs/ref/cli/introduction.mdx",
+  ];
+
+  pathes.forEach((path) => console.log({ path, exists: fs.existsSync(path) }));
+
   /**
    * Read all the markdown files that might have
    *  - custom text
