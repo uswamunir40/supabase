@@ -2,7 +2,6 @@ import ReactMarkdown from 'react-markdown'
 import { CodeBlock, IconChevronRight, Tabs } from 'ui'
 import spec from '~/spec/cli_v1_commands.yaml' assert { type: 'yml' }
 import RefSubLayout from '~/layouts/ref/RefSubLayout'
-import RefDetailCollapse from './RefDetailCollapse'
 
 export type Flag = {
   id: string
@@ -126,31 +125,6 @@ const CliCommandSection = (props) => {
                         {example.code}
                       </CodeBlock>
 
-                      <RefDetailCollapse
-                        id={`${exampleId}-response`}
-                        label="Response"
-                        defaultOpen={false}
-                      >
-                        <CodeBlock
-                          className="useless-code-block-class rounded !rounded-tl-none !rounded-tr-none border border-DEFAULT"
-                          language="bash"
-                          hideLineNumbers={true}
-                        >
-                          {example.response}
-                        </CodeBlock>
-                      </RefDetailCollapse>
-
-                      {example.description && (
-                        <RefDetailCollapse
-                          id={`${exampleId}-notes`}
-                          label="Notes"
-                          defaultOpen={false}
-                        >
-                          <div className="bg-overlay border border-overlay rounded !rounded-tl-none !rounded-tr-none prose max-w-none px-5 py-2">
-                            <ReactMarkdown className="text-sm">{example.description}</ReactMarkdown>
-                          </div>
-                        </RefDetailCollapse>
-                      )}
                     </Tabs.Panel>
                   )
                 })
