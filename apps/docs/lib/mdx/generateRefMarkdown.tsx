@@ -6,11 +6,6 @@ import matter from "gray-matter";
 import { serialize } from "next-mdx-remote/serialize";
 import { ICommonMarkdown } from "~/components/reference/Reference.types";
 
-const getDirectories = (source) =>
-  readdirSync(source, { withFileTypes: true })
-    .filter((dirent) => dirent.isDirectory())
-    .map((dirent) => dirent.name);
-
 async function generateRefMarkdown(sections: ICommonMarkdown[], slug: string) {
   let markdownContent = [];
 
