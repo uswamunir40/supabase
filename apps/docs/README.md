@@ -24,7 +24,7 @@ All tools have versioned docs, which are kept in separate folders. For example, 
 - `cli`: the "next" release.
 - `cli_spec`: contains the DocSpec for the "next" release (see below).
 - `cli_versioned_docs`: a version of the documentation for every release (including the most current version).
-- `cli_versioned_sidebars`: a version of the sidebar for every release (including the most current version).
+- `cli_versioned_sidebars`: a version of the sidebar for every release (including the most current version)
 
 When you release a new version of a tool, you should also release a new version of the docs. You can do this via the command line. For example, if you just released the CLI version `1.0.1`:
 
