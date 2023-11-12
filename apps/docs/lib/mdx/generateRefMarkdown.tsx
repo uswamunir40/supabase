@@ -1,13 +1,13 @@
-import fs from 'fs'
+import fs from "fs";
 
-import { CodeHikeConfig, remarkCodeHike } from '@code-hike/mdx'
-import codeHikeTheme from 'config/code-hike.theme.json' assert { type: 'json' }
-import matter from 'gray-matter'
-import { serialize } from 'next-mdx-remote/serialize'
-import { ICommonMarkdown } from '~/components/reference/Reference.types'
+import { CodeHikeConfig, remarkCodeHike } from "@code-hike/mdx";
+import codeHikeTheme from "config/code-hike.theme.json" assert { type: "json" };
+import matter from "gray-matter";
+import { serialize } from "next-mdx-remote/serialize";
+import { ICommonMarkdown } from "~/components/reference/Reference.types";
 
 async function generateRefMarkdown(sections: ICommonMarkdown[], slug: string) {
-  let markdownContent = []
+  let markdownContent = [];
   /**
    * Read all the markdown files that might have
    *  - custom text
@@ -16,28 +16,32 @@ async function generateRefMarkdown(sections: ICommonMarkdown[], slug: string) {
    */
   await Promise.all(
     sections.map(async (section) => {
-      const pathName = `docs/ref${slug}/${section.id}.mdx`
+      const pathName = `docs/ref${slug}/${section.id}.mdx`;
+
+      console.info({ pathName });
 
       function checkFileExists(x) {
         if (fs.existsSync(x)) {
-          return true
+          return true;
         } else {
-          return false
+          return false;
         }
       }
 
-      const markdownExists = checkFileExists(pathName)
+      const markdownExists = checkFileExists(pathName);
 
       if (!markdownExists) {
-        console.warn(`${pathName} does not exist`)
-        return null
+        console.warn(`${pathName} does not exist`);
+        return null;
       }
 
-      const fileContents = markdownExists ? fs.readFileSync(pathName, 'utf8') : ''
-      const { data, content } = matter(fileContents)
+      const fileContents = markdownExists
+        ? fs.readFileSync(pathName, "utf8")
+        : "";
+      const { data, content } = matter(fileContents);
 
       if (!content) {
-        console.warn('no content ' + pathName)
+        console.warn("no content " + pathName);
       }
 
       const codeHikeOptions: CodeHikeConfig = {
@@ -46,7 +50,7 @@ async function generateRefMarkdown(sections: ICommonMarkdown[], slug: string) {
         showCopyButton: true,
         skipLanguages: [],
         autoImport: false,
-      }
+      };
 
       markdownContent.push({
         id: section.id,
@@ -54,7 +58,7 @@ async function generateRefMarkdown(sections: ICommonMarkdown[], slug: string) {
         meta: data,
         // introPage: introPages.includes(x),
         content: content
-          ? await serialize(content ?? '', {
+          ? await serialize(content ?? "", {
               // MDX's available options, see the MDX docs for more info.
               // https://mdxjs.com/packages/mdx/#compilefile-options
               mdxOptions: {
@@ -64,11 +68,11 @@ async function generateRefMarkdown(sections: ICommonMarkdown[], slug: string) {
               // Indicates whether or not to parse the frontmatter from the mdx source
             })
           : null,
-      })
+      });
     })
-  )
+  );
 
-  return markdownContent
+  return markdownContent;
 }
 
-export default generateRefMarkdown
+export default generateRefMarkdown;
