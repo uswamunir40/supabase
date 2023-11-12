@@ -18,7 +18,7 @@ async function generateRefMarkdown(sections: ICommonMarkdown[], slug: string) {
     sections.map(async (section) => {
       let pathName = `docs/ref${slug}/${section.id}.mdx`;
 
-      if (process.env.VERCEL) {
+      if (process.env.NODE_ENV === "production") {
         const baseDir = __dirname.split("/.next")[0];
         pathName = `${baseDir}/.next/server/docs/ref${slug}/${section.id}.mdx`;
       }
