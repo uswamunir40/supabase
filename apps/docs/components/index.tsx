@@ -9,14 +9,8 @@ import RefHeaderSection from './reference/RefHeaderSection'
 // Ref version specific
 import CliGlobalFlagsHandler from '~/components/reference/enrichments/cli/CliGlobalFlagsHandler'
 
-import Options from '~/components/Options'
-import Param from '~/components/Params'
-
-import { Admonition } from 'ui'
-
 const components = {
   ...markdownComponents,
-  Admonition,
   Button,
   CH,
   CodeBlock,
@@ -32,8 +26,6 @@ const components = {
   RefSubLayout,
   RefHeaderSection: (props: any) => <RefHeaderSection {...props} />,
   CliGlobalFlagsHandler: () => <CliGlobalFlagsHandler />,
-  Options,
-  Param,
 }
 
 export default components

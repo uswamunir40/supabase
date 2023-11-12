@@ -1,7 +1,5 @@
 // @ts-check
 import nextMdx from '@next/mdx'
-import remarkGfm from 'remark-gfm'
-import rehypeSlug from 'rehype-slug'
 import { remarkCodeHike } from '@code-hike/mdx'
 
 import withYaml from 'next-plugin-yaml'
@@ -25,9 +23,7 @@ const withMDX = nextMdx({
           showCopyButton: true,
         },
       ],
-      remarkGfm,
     ],
-    rehypePlugins: [rehypeSlug],
     providerImportSource: '@mdx-js/react',
   },
 })

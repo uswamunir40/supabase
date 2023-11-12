@@ -1191,25 +1191,7 @@ export const supabase_cli: NavMenuConstant = {
           url: '/guides/cli/customizing-email-templates',
         },
       ],
-    },
-    {
-      name: 'GitHub Action',
-      url: undefined,
-      items: [
-        {
-          name: 'Generate types from your database',
-          url: '/guides/cli/github-action/generating-types',
-        },
-        {
-          name: 'Automated testing',
-          url: '/guides/cli/github-action/testing',
-        },
-        {
-          name: 'Backup your database',
-          url: '/guides/cli/github-action/backups',
-        },
-      ],
-    },
+    }
   ],
 }
 

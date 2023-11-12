@@ -9,23 +9,18 @@ import '../styles/prism-okaidia.scss'
 
 import { SessionContextProvider } from '@supabase/auth-helpers-react'
 import { createClient } from '@supabase/supabase-js'
-import { AuthProvider, ThemeProvider, useTelemetryProps, useThemeSandbox } from 'common'
+import { AuthProvider, ThemeProvider } from 'common'
 import { useRouter } from 'next/router'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AppPropsWithLayout } from 'types'
-import { CommandMenuProvider, useConsent } from 'ui'
+import { CommandMenuProvider } from 'ui'
 import { TabsProvider } from 'ui/src/components/Tabs'
 import PortalToast from 'ui/src/layout/PortalToast'
 import SiteLayout from '~/layouts/SiteLayout'
-import { API_URL, IS_PLATFORM } from '~/lib/constants'
-import { post } from '~/lib/fetchWrappers'
+import { IS_PLATFORM } from '~/lib/constants'
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const router = useRouter()
-  const telemetryProps = useTelemetryProps()
-  const { consentValue, hasAcceptedConsent } = useConsent()
-
-  useThemeSandbox()
 
   const [supabase] = useState(() =>
     IS_PLATFORM
@@ -35,48 +30,6 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         )
       : undefined
   )
-
-  const handlePageTelemetry = useCallback(
-    (route: string) => {
-      return post(`${API_URL}/telemetry/page`, {
-        referrer: document.referrer,
-        title: document.title,
-        route,
-        ga: {
-          screen_resolution: telemetryProps?.screenResolution,
-          language: telemetryProps?.language,
-        },
-      })
-    },
-    [telemetryProps]
-  )
-
-  useEffect(() => {
-    function handleRouteChange(url: string) {
-      /*
-       * handle telemetry
-       */
-      if (hasAcceptedConsent) handlePageTelemetry(url)
-      /*
-       * handle "scroll to top" behaviour on route change
-       */
-      if (document) {
-        // do not scroll to top for reference docs
-        if (!url.includes('reference/')) {
-          // scroll container div to top
-          const container = document.getElementById('docs-content-container')
-          // check container exists (only avail on new docs)
-          if (container) container.scrollTop = 0
-        }
-      }
-    }
-
-    // Listen for page changes after a navigation or when the query changes
-    router.events.on('routeChangeComplete', handleRouteChange)
-    return () => {
-      router.events.off('routeChangeComplete', handleRouteChange)
-    }
-  }, [router, handlePageTelemetry, consentValue])
 
   /**
    * Save/restore scroll position when reloading or navigating back/forward.
@@ -113,17 +66,6 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
     return () => window.removeEventListener('beforeunload', handler)
   }, [router])
-
-  useEffect(() => {
-    if (!hasAcceptedConsent) return
-
-    /**
-     * Send page telemetry on first page load
-     */
-    if (router.isReady) {
-      handlePageTelemetry(router.basePath + router.asPath)
-    }
-  }, [router, handlePageTelemetry, consentValue])
 
   /**
    * Reference docs use `history.pushState()` to jump to
