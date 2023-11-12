@@ -60,6 +60,7 @@
     "gray-matter": "^4.0.3",
     "hast-util-has-property": "^2.0.1",
     "isbot": "^3.6.5",
+    "json-stringify-safe": "^5.0.1",
     "jsrsasign": "^10.5.26",
     "lodash": "^4.17.21",
     "markdown-toc": "^1.2.0",
