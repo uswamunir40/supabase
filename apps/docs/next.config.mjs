@@ -31,6 +31,7 @@ const withMDX = nextMdx({
 
 /** @type {import('next').NextConfig} nextConfig */
 const nextConfig = {
+  outputFileTracing: true,
   webpack(config, options) {
     /** MDX files in docs folder are loaded dynamically on the server, so they need to be included in the .next build dir */
     config.plugins.push(

@@ -1,10 +1,7 @@
 {
     "functions": {
        "pages/reference/cli/[...slug].tsx":  {
-         "includeFiles": "docs/**/*.mdx"
-       },
-       "docs/reference/cli/[...slug]": {
-        "includeFiles": "docs/**/*.mdx"
+         "includeFiles": "docs/ref/**/*.mdx"
        }
     }
   }
