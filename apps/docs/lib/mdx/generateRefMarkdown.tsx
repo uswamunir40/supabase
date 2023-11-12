@@ -33,7 +33,7 @@ async function generateRefMarkdown(sections: ICommonMarkdown[], slug: string) {
     sections.map(async (section) => {
       let pathName = `docs/ref${slug}/${section.id}.mdx`;
 
-      if (process.env.NODE_ENV === "production") {
+      /*if (process.env.NODE_ENV === "production") {
         const baseDir = __dirname.split("/.next")[0];
         pathName = `${baseDir}/.next/server/docs/ref${slug}/${section.id}.mdx`;
 
@@ -41,7 +41,7 @@ async function generateRefMarkdown(sections: ICommonMarkdown[], slug: string) {
 
         console.log("top level dirs");
         console.log(getDirectories(`${baseDir}/.next/server`).join(", "));
-      }
+      }*/
 
       function checkFileExists(x) {
         if (fs.existsSync(x)) {
