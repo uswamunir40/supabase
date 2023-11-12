@@ -1,6 +1,6 @@
 import ReactMarkdown from 'react-markdown'
 import { CodeBlock, IconChevronRight, Tabs } from 'ui'
-import spec from '~/../../spec/cli_v1_commands.yaml' assert { type: 'yml' }
+import spec from '~/spec/cli_v1_commands.yaml' assert { type: 'yml' }
 import Options from '~/components/Options'
 import Param from '~/components/Params'
 import RefSubLayout from '~/layouts/ref/RefSubLayout'
@@ -110,8 +110,7 @@ const CliCommandSection = (props) => {
                 <h3 className="text-lg text-foreground mb-3">Flags</h3>
                 <ul className="">
                   {commandFlags.map((flag: Flag) => (
-                    <>
-                      <li className="mt-0">
+                      <li className="mt-0" key={flag.id}>
                         <Param {...flag} isOptional={!flag.required}>
                           {flag?.accepted_values && (
                             <Options>
@@ -122,7 +121,6 @@ const CliCommandSection = (props) => {
                           )}
                         </Param>
                       </li>
-                    </>
                   ))}
                 </ul>
               </>
