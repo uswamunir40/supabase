@@ -27,7 +27,9 @@ async function generateRefMarkdown(sections: ICommonMarkdown[], slug: string) {
         const baseDir = __dirname.split("/.next")[0];
         pathName = `${baseDir}/.next/server/docs/ref${slug}/${section.id}.mdx`;
 
-        console.log('top level dirs')
+        console.log({ cwd: process.cwd() });
+
+        console.log("top level dirs");
         console.log(getDirectories(`${baseDir}/.next/server`).join(", "));
       }
 
