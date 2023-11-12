@@ -16,9 +16,12 @@ async function generateRefMarkdown(sections: ICommonMarkdown[], slug: string) {
    */
   await Promise.all(
     sections.map(async (section) => {
-      const baseDir = __dirname.split("/.next")[0];
+      let pathName = `docs/ref${slug}/${section.id}.mdx`;
 
-      const pathName = `${baseDir}/.next/server/docs/ref${slug}/${section.id}.mdx`;
+      if (process.env.VERCEL) {
+        const baseDir = __dirname.split("/.next")[0];
+        pathName = `${baseDir}/.next/server/docs/ref${slug}/${section.id}.mdx`;
+      }
 
       function checkFileExists(x) {
         if (fs.existsSync(x)) {
