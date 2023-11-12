@@ -29,7 +29,10 @@ async function generateRefMarkdown(sections: ICommonMarkdown[], slug: string) {
 
       const markdownExists = checkFileExists(pathName)
 
-      if (!markdownExists) return null
+      if (!markdownExists) {
+        console.warn(`${pathName} does not exist`)
+        return null
+      }
 
       const fileContents = markdownExists ? fs.readFileSync(pathName, 'utf8') : ''
       const { data, content } = matter(fileContents)
