@@ -36,6 +36,10 @@ async function generateRefMarkdown(sections: ICommonMarkdown[], slug: string) {
       const fileContents = markdownExists ? fs.readFileSync(pathName, 'utf8') : ''
       const { data, content } = matter(fileContents)
 
+      if (!content) {
+        console.warn('no content ' + pathName)
+      }
+
       const codeHikeOptions: CodeHikeConfig = {
         theme: codeHikeTheme,
         lineNumbers: true,
