@@ -6,9 +6,7 @@ import RefEducationSection from '~/components/reference/RefEducationSection'
 import RefFunctionSection from '~/components/reference/RefFunctionSection'
 
 import RefSubLayout from '~/layouts/ref/RefSubLayout'
-import ApiOperationSection from './ApiOperationSection'
 import CliCommandSection from './CLICommandSection'
-import OldVersionAlert from './OldVersionAlert'
 import { IAPISpec, ICommonSection, IRefStaticDoc, ISpec, TypeSpec } from './Reference.types'
 
 interface RefSectionHandlerProps {
@@ -75,7 +73,6 @@ const RefSectionHandler = (props: RefSectionHandlerProps) => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="canonical" href={`https://supabase.com${router.basePath}${path}`} />
       </Head>
-      {props.isOldVersion && <OldVersionAlert sections={props.sections} />}
       <RefSubLayout>
         {props.sections.map((section, i) => {
           const sectionType = section.type
@@ -108,15 +105,7 @@ const RefSectionHandler = (props: RefSectionHandlerProps) => {
                   commonFuncData={section}
                 />
               )
-            case 'operation':
-              return (
-                <ApiOperationSection
-                  key={section.id + i}
-                  funcData={section}
-                  commonFuncData={section}
-                  spec={props.spec}
-                />
-              )
+
             default:
               throw new Error(`Unknown common section type '${sectionType}'`)
           }

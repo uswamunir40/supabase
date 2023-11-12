@@ -1,18 +1,6 @@
 import * as fs from 'fs'
 import { mapValues, values } from 'lodash'
 
-export const slugify = (text: string) => {
-  if (!text) return ''
-  return text
-    .toString()
-    .toLowerCase()
-    .replace(/[. )(]/g, '-') // Replace spaces and brackets -
-    .replace(/[^\w\-]+/g, '') // Remove all non-word chars
-    .replace(/\-\-+/g, '-') // Replace multiple - with single -
-    .replace(/^-+/, '') // Trim - from start of text
-    .replace(/-+$/, '') // Trim - from end of text
-}
-
 // Uppercase the first letter of a string
 export const toTitle = (text: string) => {
   return text.charAt(0).toUpperCase() + text.slice(1)
