@@ -1,7 +1,7 @@
 // @ts-check
 import nextMdx from "@next/mdx";
 import { remarkCodeHike } from "@code-hike/mdx";
-import CopyWebpackPlugin from 'copy-webpack-plugin'
+import CopyWebpackPlugin from "copy-webpack-plugin";
 
 import withYaml from "next-plugin-yaml";
 import configureBundleAnalyzer from "@next/bundle-analyzer";
@@ -32,6 +32,7 @@ const withMDX = nextMdx({
 /** @type {import('next').NextConfig} nextConfig */
 const nextConfig = {
   webpack(config, options) {
+    /** MDX files in docs folder are loaded dynamically on the server, so they need to be included in the .next build dir */
     config.plugins.push(
       new CopyWebpackPlugin({
         patterns: [{ from: "docs", to: "docs" }],
