@@ -18,7 +18,7 @@ async function generateRefMarkdown(sections: ICommonMarkdown[], slug: string) {
     sections.map(async (section) => {
       const baseDir = __dirname.split("/.next")[0];
 
-      const pathName = `${baseDir}/docs/ref${slug}/${section.id}.mdx`;
+      const pathName = `${baseDir}/.next/server/docs/ref${slug}/${section.id}.mdx`;
 
       function checkFileExists(x) {
         if (fs.existsSync(x)) {
