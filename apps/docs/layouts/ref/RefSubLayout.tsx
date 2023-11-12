@@ -1,9 +1,6 @@
 import { useInView } from 'react-intersection-observer'
 import { FC, PropsWithChildren } from 'react'
-import { highlightSelectedNavItem } from '~/components/CustomHTMLElements/CustomHTMLElements.utils'
 import { useRouter } from 'next/router'
-import { useNavigationMenuContext } from '~/components/Navigation/NavigationMenu/NavigationMenu.Context'
-import { menuState } from '~/hooks/useMenuState'
 import Image from 'next/legacy/image'
 
 interface ISectionContainer {
@@ -84,8 +81,6 @@ const Section: FC<PropsWithChildren<ISectionContainer>> = (props) => {
 const StickyHeader: FC<StickyHeader> = ({ icon, ...props }) => {
   const router = useRouter()
 
-  const { setActiveRefItem } = useNavigationMenuContext()
-
   // we're serving search bots a different file (/crawlers/[...slug])
   // and need to modify content to suit that
   const isCrawlerPage = router.route.includes('/crawlers/[...slug]')
@@ -94,14 +89,8 @@ const StickyHeader: FC<StickyHeader> = ({ icon, ...props }) => {
     threshold: 1,
     rootMargin: '30% 0% -35% 0px',
     onChange: (inView, entry) => {
-      if (inView && window) highlightSelectedNavItem(entry.target.attributes['data-ref-id'].value)
       if (inView && props.scrollSpyHeader) {
         window.history.replaceState(null, '', entry.target.id)
-        // if (setActiveRefItem) setActiveRefItem(entry.target.attributes['data-ref-id'].value)
-        menuState.setMenuActiveRefId(entry.target.attributes['data-ref-id'].value)
-        // router.push(`/reference/javascript/${entry.target.attributes['data-ref-id'].value}`, null, {
-        //   shallow: true,
-        // })
       }
     },
   })

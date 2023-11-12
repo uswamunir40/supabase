@@ -1,5 +1,4 @@
 import { FC } from 'react'
-import { FooterHelpCalloutType } from '~/components/FooterHelpCallout'
 import GuideLayout from './guides'
 
 interface Props {
@@ -8,7 +7,7 @@ interface Props {
     description?: string
     hide_table_of_contents?: boolean
     video?: string
-    footerHelpType?: FooterHelpCalloutType
+    footerHelpType?: any
   }
   children: any
   toc?: any

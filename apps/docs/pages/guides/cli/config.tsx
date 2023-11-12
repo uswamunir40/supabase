@@ -1,8 +1,6 @@
 import specFile from '~/spec/cli_v1_config.yaml' assert { type: 'yml' }
 import { Parameter } from '~/lib/refGenerator/refTypes'
 import ReactMarkdown from 'react-markdown'
-import GuidesTableOfContents from '~/components/GuidesTableOfContents'
-import { Heading } from '~/components/CustomHTMLElements'
 import Head from 'next/head'
 import { CodeBlock } from 'ui'
 
@@ -12,7 +10,6 @@ const content = specFile.info.tags.map((tag) => {
   tocList.push({ text: tag.title, link: `${tag.id}-config`, level: 2 })
   return (
     <div>
-      <Heading tag="h2">{tag.title} Config</Heading>
       {specFile.parameters
         .filter((param: Parameter) => param.tags[0] === tag.id)
         .map((parameter: Parameter) => {
@@ -38,14 +35,6 @@ export default function Config() {
             <div>{content}</div>
           </div>
         </div>
-        <div className="md:col-span-3">
-          <div className="sticky overflow-auto max-h-[calc(100vh-60px-5rem)] pb-3 top-32 border-l">
-            <span className="block font-mono text-xs uppercase text-foreground pl-5 mb-4">
-              On this page
-            </span>
-            <GuidesTableOfContents list={tocList} />
-          </div>
-        </div>
       </div>
     </>
   )
@@ -55,10 +44,6 @@ function Info({ parameter }: { parameter: Parameter }) {
   return (
     <div className="mt-8">
       <div>
-        <Heading tag="h3" parseAnchors={false} customAnchor={parameter.id}>
-          <code>{parameter.title}</code>
-        </Heading>
-
         <div className="border-b pb-8" key={parameter.id}>
           <div className=" mb-16">
             <div className="">

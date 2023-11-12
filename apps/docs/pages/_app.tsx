@@ -16,7 +16,6 @@ import { AppPropsWithLayout } from 'types'
 import { CommandMenuProvider, useConsent } from 'ui'
 import { TabsProvider } from 'ui/src/components/Tabs'
 import PortalToast from 'ui/src/layout/PortalToast'
-import Favicons from '~/components/Favicons'
 import SiteLayout from '~/layouts/SiteLayout'
 import { API_URL, IS_PLATFORM } from '~/lib/constants'
 import { post } from '~/lib/fetchWrappers'
@@ -159,7 +158,6 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
   return (
     <>
-      <Favicons />
       <AuthContainer>
         <ThemeProvider
           attribute="class"
