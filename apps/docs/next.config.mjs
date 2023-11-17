@@ -47,6 +47,9 @@ const nextConfig = {
         './node_modules/rollup/**/*',
       ],
     },
+    outputFileTracingIncludes: {
+      '/': ['docs/ref/**/*.mdx'],
+    },
   },
 
   // Append the default value with md extensions
@@ -58,18 +61,11 @@ const nextConfig = {
     /** MDX files in docs folder are loaded dynamically on the server, so they need to be included in the .next build dir */
     config.plugins.push(
       new CopyWebpackPlugin({
-        patterns: [{ from: "docs/ref", to: "docs/ref" }],
+        patterns: [{ from: 'docs/ref', to: 'docs/ref' }],
       })
-    );
-    return config;
+    )
+    return config
   },
-
-  experimental: {
-    outputFileTracingIncludes: {
-      "/": ["docs/ref/**/*.mdx"],
-    },
-  },
-
 
   basePath: '/docs',
   images: {
@@ -83,7 +79,7 @@ const nextConfig = {
       'weweb-changelog.ghost.io',
       'img.youtube.com',
       'archbee-image-uploads.s3.amazonaws.com',
-      'obuldanrptloktxcffvn.supabase.co'
+      'obuldanrptloktxcffvn.supabase.co',
     ],
   },
   // TODO: @next/mdx ^13.0.2 only supports experimental mdxRs flag. next ^13.0.2 will stop warning about this being unsupported.
