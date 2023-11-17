@@ -540,6 +540,7 @@ export const auth = {
         },
         { name: 'Password Reset', url: '/guides/auth/auth-password-reset' },
         { name: 'Email Templates', url: '/guides/auth/auth-email-templates' },
+        { name: 'Auth Hooks (Postgres)', url: '/guides/auth/auth-postgres-hooks' },
       ],
     },
     {
