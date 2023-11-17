@@ -61,7 +61,7 @@ const nextConfig = {
     /** MDX files in docs folder are loaded dynamically on the server, so they need to be included in the .next build dir */
     config.plugins.push(
       new CopyWebpackPlugin({
-        patterns: [{ from: 'docs/ref', to: 'docs/ref' }],
+        patterns: [{ from: 'docs/ref', to: 'server/docs/ref' }],
       })
     )
     return config
