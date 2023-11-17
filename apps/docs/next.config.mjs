@@ -48,7 +48,7 @@ const nextConfig = {
       ],
     },
     outputFileTracingIncludes: {
-      '/': ['docs/ref/**/*.mdx'],
+      '*': ['./docs/ref/**/*.mdx'],
     },
   },
 
